@@ -1,0 +1,63 @@
+
+{%  extends 'CRM/main_template.html' %}
+{% load static %}
+{% block content %}
+
+{%  include 'CRM/status.html' %}
+
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CUSTOMERS: {{total_customers}}</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Customer</th>
+					<th>Query1</th>
+				</tr>
+				{% for customer in customers %}
+					<tr>
+						<td><a href="{% url 'customer' customer.id %}" class="btn btn-sm btn-info">View</a></td>
+						<td>{{customer.name}}</td>
+						<td>{{customer.queries}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 Queries</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Query_type</th>
+					<th>Category</th>
+					<th>Raised date</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for query in querys %}
+					<tr>
+						<td>{{query.query_type}}</td>
+						<td>{{query.category}}</td>
+						<td>{{query.raised_date}}</td>
+						<td>{{query.status}}</td>
+						<td><a class="btn btn-sm btn-warning" href="{% url 'update_order' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Cancel</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+{% endblock content %}
